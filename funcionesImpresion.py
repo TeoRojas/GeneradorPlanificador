@@ -22,10 +22,16 @@ def imprimeMesCabeceraIzqd(mesEnTexto, nSemanas):
         
     print "\t\t\\toprule"
 
-def imprimeFormatoDia(matriz, nDia, nColum):    
+def imprimeFormatoDia(matriz, nDia):    
     cadenaImprimir = '\t\t'
     lDia = ['L', 'M', 'X', 'J', 'V', 'S', 'D']
     iterador = 1
+    semanas = len(matriz[0])
+    if (semanas == 4):
+        nColum  = 2
+    else:
+        nColum = 3
+    
     for valorVectorDia in matriz[nDia]:
         #formato de Letra del día
         if(valorVectorDia == 0):
@@ -47,10 +53,17 @@ def imprimeFormatoDia(matriz, nDia, nColum):
         iterador += 1       
     print cadenaImprimir
 
-def imprimeFormatoCuadrados(matriz, nDia, nColum):
+def imprimeFormatoCuadrados(matriz, nDia):
     cadenaImprimir = '\t\t'
     cadenaImprimir2 = '\t\t'
     iterador = 1
+    semanas = len(matriz[0])
+
+    if (semanas == 4):
+        nColum  = 2
+    else:
+        nColum = 3
+
     for valorVectorDia in matriz[nDia]:
         if(valorVectorDia == 0):
             cadenaImprimir += ' '
@@ -80,9 +93,7 @@ def cierraPaginaUno():
 
 
 def imprimePaginaIzq(matriz, nMes): 
-    #Imprime estructura L & L_{6} & L_{13}
-    #nDia = 0 -> 'L', dia = 1 -> 'M', [número de día]
-    #lDia [letra de día]
+
     meses = ['cero', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
 
     imprimeMesCabeceraIzqd(meses[nMes], len(matriz[0]))
@@ -96,12 +107,12 @@ def imprimePaginaIzq(matriz, nMes):
         Col = 3
     
     for dia in range(7):
-        imprimeFormatoDia(matriz, dia, Col)
+        imprimeFormatoDia(matriz, dia)
         if(dia < 5):
             for i in range(Col):
-                imprimeFormatoCuadrados(matriz, dia, Col)
+                imprimeFormatoCuadrados(matriz, dia)
         else:
-            imprimeFormatoCuadrados(matriz, dia, Col)
+            imprimeFormatoCuadrados(matriz, dia)
 
         if(dia < 5):
             print("\n\t\t\\hline\n")
@@ -109,5 +120,21 @@ def imprimePaginaIzq(matriz, nMes):
     cierraPaginaUno()
 
 
+def imprimeMesCabeceraDch(nSemanas):
+    print "%Página siguiente"
+    print "{\\raggedright"
+    print "\t\\fontsize{25}{50}\\selectfont"
+    print "\t\\textbf{\\NextYear}"
+    print "}\\scriptsize{\\textbf{planificador mensual$_2$}}\n\n"
+    if(nSemanas <= 5):
+        print "\t\\renewcommand{\\arraystretch}{1.39}\\scriptsize"
+        print "\t\\begin{longtabu} to \\textwidth { X[l] X[l]}"
+        print "\t\t\\centering \\textbf{Semana4} &  \\centering\\textbf{Semana5}  \\\\"
+    else:
+        print "\t\\renewcommand{\\arraystretch}{1.24}\\scriptsize"
+        print "\t\\begin{longtabu} to \\textwidth { X[l] X[l] X[l]}"
+        print "\t\t\\centering \\textbf{Semana4} &  \\centering\\textbf{Semana5}  &   \centering\\textbf{Semana6}  \\\\"
+        
+    print "\t\t\\toprule"
 
 

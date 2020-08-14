@@ -34,4 +34,7 @@ def generaMatrizMensual(mes, ano):
     return a
 
 matriz = generaMatrizMensual(mes, ano)
-imprimePaginaIzq(matriz, mes)
+#print (cantidadSemanasDelMes(mes, ano))
+#print matriz
+#imprimePaginaIzq(matriz, mes)
+imprimeMesCabeceraDch(5)
