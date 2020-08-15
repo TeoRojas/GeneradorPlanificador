@@ -4,11 +4,12 @@ from calendar import monthrange
 import sys
 import numpy as np
 from funcionesImpresion import *
+import math
 
 ano = 2019
-mes = 6
+mes = 9
 diaSemana = ['L', 'M', 'X', 'J', 'V', 'S', 'D']
-numSemanasDelMes = len(calendar.monthcalendar(ano,mes))
+nSemanasDelMes = len(calendar.monthcalendar(ano,mes))
 
 def cantidadSemanasDelMes(mes, ano):
     #print "número de mes: " + str(mes)
@@ -34,7 +35,7 @@ def generaMatrizMensual(mes, ano):
     return a
 
 matriz = generaMatrizMensual(mes, ano)
-#print (cantidadSemanasDelMes(mes, ano))
-#print matriz
-#imprimePaginaIzq(matriz, mes)
-imprimeMesCabeceraDch(5)
+
+
+imprimePaginaIzq(matriz, mes)
+imprimePaginaDch(matriz, mes)

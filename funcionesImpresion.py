@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import numpy as np
+
 def copiarDesde():
     print "%%%%%%%%%%%%% COPIAR DESDE AQUÍ %%%%%%%%%%%%%%%%%%%"
 
@@ -22,102 +24,11 @@ def imprimeMesCabeceraIzqd(mesEnTexto, nSemanas):
         
     print "\t\t\\toprule"
 
-def imprimeFormatoDia(matriz, nDia):    
-    cadenaImprimir = '\t\t'
-    lDia = ['L', 'M', 'X', 'J', 'V', 'S', 'D']
-    iterador = 1
-    semanas = len(matriz[0])
-    if (semanas == 4):
-        nColum  = 2
-    else:
-        nColum = 3
-    
-    for valorVectorDia in matriz[nDia]:
-        #formato de Letra del día
-        if(valorVectorDia == 0):
-            if(nDia < 5): #formato de lunes a viernes fuera de mes
-                cadenaImprimir +=  lDia[nDia]
-            else: # formato de sábados y domingos fuera de mes
-                cadenaImprimir +=   "\\textit{" + lDia[nDia] + '}'
-        else:
-            if(nDia < 5): #formato de lunes a viernes
-                cadenaImprimir += lDia[nDia] + '_{' + str(int(valorVectorDia)) + '}'
-            else: #formato sábados y domingos
-                cadenaImprimir += "\\textit{" + lDia[nDia] + '}_{' + str(int(valorVectorDia)) + '}'
-        #formato de espaciado e intro
-        if (iterador < nColum):
-            cadenaImprimir += ' & '
-        else:
-            cadenaImprimir += ' \\\\'
-            break
-        iterador += 1       
-    print cadenaImprimir
 
-def imprimeFormatoCuadrados(matriz, nDia):
-    cadenaImprimir = '\t\t'
-    cadenaImprimir2 = '\t\t'
-    iterador = 1
-    semanas = len(matriz[0])
-
-    if (semanas == 4):
-        nColum  = 2
-    else:
-        nColum = 3
-
-    for valorVectorDia in matriz[nDia]:
-        if(valorVectorDia == 0):
-            cadenaImprimir += ' '
-            cadenaImprimir2 += ' '
-        else:
-            cadenaImprimir += '\\makebox{$\\square$}\\dotfill'
-            if(nDia < 5):
-                cadenaImprimir2 += '\\dotfill'
-        if (iterador < nColum):
-            cadenaImprimir += ' & '
-            if(nDia < 5):
-                cadenaImprimir2 += ' & '
-        else:
-            cadenaImprimir += ' \\\\'
-            if(nDia < 5):
-                cadenaImprimir2 += ' \\\\'
-            break
-        iterador += 1
-    print cadenaImprimir
-    print cadenaImprimir2
-
-
-def cierraPaginaUno():
+def cierraPagina():
     print '\t\t\\bottomrule'
     print '\t\\end{longtabu}'
     print '\\clearpage'
-
-
-def imprimePaginaIzq(matriz, nMes): 
-
-    meses = ['cero', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-
-    imprimeMesCabeceraIzqd(meses[nMes], len(matriz[0]))
-    
-    nSemanasDelMes = len(matriz[0])
-    if(nSemanasDelMes == 5):
-        Col = 3
-    elif(nColum == 4):
-        Col = 2
-    elif(nColum == 6):
-        Col = 3
-    
-    for dia in range(7):
-        imprimeFormatoDia(matriz, dia)
-        if(dia < 5):
-            for i in range(Col):
-                imprimeFormatoCuadrados(matriz, dia)
-        else:
-            imprimeFormatoCuadrados(matriz, dia)
-
-        if(dia < 5):
-            print("\n\t\t\\hline\n")
-    
-    cierraPaginaUno()
 
 
 def imprimeMesCabeceraDch(nSemanas):
@@ -138,3 +49,83 @@ def imprimeMesCabeceraDch(nSemanas):
     print "\t\t\\toprule"
 
 
+def imprimeDia(vNumerosDia, letraDia):   
+    #Para pag izquierda pasarle como argumento matriz[0][:(nSemanasDelMes/2)+(nSemanasDelMes%2)]
+    #Para pag derecha pasarle como argumento matriz[0][(nSemanasDelMes/2)+(nSemanasDelMes%2):] 
+    # vNumerosDia tiene la mitad de los números de un mismo día del mes, es decir xej Lunes 1, Lunes 8, Lunes 16 --> [1,8,16]
+    cadenaImprimir = '\t\t'
+    i = 1
+    for dia in vNumerosDia:
+        if(letraDia != 'S' and letraDia != 'D'):
+            if(dia == 0):
+                cadenaImprimir += letraDia
+            else:
+                cadenaImprimir += letraDia + '_{' + str(int(dia)) + '}'
+        else:
+            if(dia == 0):
+                cadenaImprimir += "\\textit{" + letraDia + '}'
+            else:
+                cadenaImprimir += "\\textit{" + letraDia + '}_{' + str(int(dia)) + '}'            
+
+        if (i < len(vNumerosDia)):
+            cadenaImprimir += ' & '
+        else:
+            cadenaImprimir += ' \\\\'
+        i += 1  
+    print cadenaImprimir
+
+
+def imprimeCuadradosParaUnDia(vNumerosDia):
+    #Para pag izquierda pasarle como argumento matriz[0][:(nSemanasDelMes/2)+(nSemanasDelMes%2)]
+    #Para pag derecha pasarle como argumento matriz[0][(nSemanasDelMes/2)+(nSemanasDelMes%2):]
+    cadenaImprimir = '\t\t'
+    cadenaImprimir2 = '\t\t'
+    i = 1
+    for dia in vNumerosDia:
+        if(dia == 0):
+            cadenaImprimir += ' '
+            cadenaImprimir2 += ' '
+        else:
+            cadenaImprimir += '\\makebox{$\\square$}\\dotfill'
+            cadenaImprimir2 += '\\dotfill'
+ 
+        if (i < len(vNumerosDia)):
+            cadenaImprimir += ' & '
+            cadenaImprimir2 += ' & '
+        else:
+            cadenaImprimir += ' \\\\'
+            cadenaImprimir2 += ' \\\\'
+        i += 1
+    print cadenaImprimir
+    print cadenaImprimir2
+
+
+def imprimePaginaDch(matriz, nMes): 
+    nSemanasDelMes = len(matriz[0])
+    letraDias = ['L', 'M', 'X', 'J', 'V', 'S', 'D']
+    
+    imprimeMesCabeceraDch(nSemanasDelMes)
+    
+    for iterador in range(7):
+        imprimeDia(matriz[iterador][(nSemanasDelMes/2)+(nSemanasDelMes%2):], letraDias[iterador])
+        imprimeCuadradosParaUnDia(matriz[iterador][(nSemanasDelMes/2)+(nSemanasDelMes%2):])
+
+    print("\n\t\t\\hline\n")
+    
+    cierraPagina()
+
+
+def imprimePaginaIzq(matriz, nMes):
+    nSemanasDelMes = len(matriz[0])
+    letraDias = ['L', 'M', 'X', 'J', 'V', 'S', 'D']
+    mesEnTexto = ['cero', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+
+    imprimeMesCabeceraIzqd(mesEnTexto[nMes], nSemanasDelMes)
+
+    for iterador in range(7):
+        imprimeDia(matriz[iterador][:(nSemanasDelMes/2)+(nSemanasDelMes%2)], letraDias[iterador])
+        imprimeCuadradosParaUnDia(matriz[iterador][:(nSemanasDelMes/2)+(nSemanasDelMes%2)])
+
+    print("\n\t\t\\hline\n")
+    
+    cierraPagina()
