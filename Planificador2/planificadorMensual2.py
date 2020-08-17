@@ -1,10 +1,32 @@
 # -*- coding: utf-8 -*-
 from funcionesgeneracion import *
 
-ano = 2019
-mes = 9
 
+mesNombre = ['0', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+
+
+print("Introduzca el año que quiere generar -ej: 2020-")
+ano = input()
+
+
+for mes in range(1,13):
+    if(mes < 10):
+        nombreArchivo = '0' 
+    nombreArchivo += str(mes) + "_" + mesNombre[mes] + "_" + 'pm2' + ".tex"
+
+    original_stdout = sys.stdout
+    with open("resultados/" + nombreArchivo, 'w') as f:
+        sys.stdout = f
+        
+        matriz = generaMatrizMensual(mes, ano)
+        imprimePaginaIzq(matriz, mes)
+        imprimePaginaDch(matriz, mes)
+
+        sys.stdout = original_stdout 
+"""
+ano = 2020
+mes = 1
 matriz = generaMatrizMensual(mes, ano)
-
 imprimePaginaIzq(matriz, mes)
 imprimePaginaDch(matriz, mes)
+"""

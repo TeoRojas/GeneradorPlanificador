@@ -29,6 +29,7 @@ def cierraPagina():
     print '\t\t\\bottomrule'
     print '\t\\end{longtabu}'
     print '\\clearpage'
+    print '\n\n\n'
 
 
 def imprimeMesCabeceraDch(nSemanas):
@@ -38,7 +39,7 @@ def imprimeMesCabeceraDch(nSemanas):
     print "\t\\textbf{\\NextYear}"
     print "}\\scriptsize{\\textbf{planificador mensual$_2$}}\n\n"
     if(nSemanas <= 5):
-        print "\t\\renewcommand{\\arraystretch}{1.39}\\scriptsize"
+        print "\t\\renewcommand{\\arraystretch}{1.25}\\scriptsize"
         print "\t\\begin{longtabu} to \\textwidth { X[l] X[l]}"
         print "\t\t\\centering \\textbf{Semana4} &  \\centering\\textbf{Semana5}  \\\\"
     else:
@@ -75,7 +76,7 @@ def imprimeDia(vNumerosDia, letraDia):
     print cadenaImprimir
 
 
-def imprimeCuadradosParaUnDia(vNumerosDia):
+def imprimeCuadradosParaUnDia(vNumerosDia, esLaboral):
     #Para pag izquierda pasarle como argumento matriz[0][:(nSemanasDelMes/2)+(nSemanasDelMes%2)]
     #Para pag derecha pasarle como argumento matriz[0][(nSemanasDelMes/2)+(nSemanasDelMes%2):]
     cadenaImprimir = '\t\t'
@@ -87,14 +88,17 @@ def imprimeCuadradosParaUnDia(vNumerosDia):
             cadenaImprimir2 += ' '
         else:
             cadenaImprimir += '\\makebox{$\\square$}\\dotfill'
-            cadenaImprimir2 += '\\dotfill'
+            if(esLaboral):
+                cadenaImprimir2 += '\\dotfill'
  
         if (i < len(vNumerosDia)):
             cadenaImprimir += ' & '
-            cadenaImprimir2 += ' & '
+            if(esLaboral):  
+                cadenaImprimir2 += ' & '
         else:
             cadenaImprimir += ' \\\\'
-            cadenaImprimir2 += ' \\\\'
+            if(esLaboral):
+                cadenaImprimir2 += ' \\\\'
         i += 1
     print cadenaImprimir
     print cadenaImprimir2
@@ -103,14 +107,20 @@ def imprimeCuadradosParaUnDia(vNumerosDia):
 def imprimePaginaDch(matriz, nMes): 
     nSemanasDelMes = len(matriz[0])
     letraDias = ['L', 'M', 'X', 'J', 'V', 'S', 'D']
+    esLaboral=True
     
     imprimeMesCabeceraDch(nSemanasDelMes)
     
     for iterador in range(7):
         imprimeDia(matriz[iterador][(nSemanasDelMes/2)+(nSemanasDelMes%2):], letraDias[iterador])
-        imprimeCuadradosParaUnDia(matriz[iterador][(nSemanasDelMes/2)+(nSemanasDelMes%2):])
+        if(iterador < 5):
+            for it2 in range(3):
+                imprimeCuadradosParaUnDia(matriz[iterador][(nSemanasDelMes/2)+(nSemanasDelMes%2):], esLaboral)
+        else:
+            imprimeCuadradosParaUnDia(matriz[iterador][(nSemanasDelMes/2)+(nSemanasDelMes%2):], not esLaboral)
 
-    print("\n\t\t\\hline\n")
+        if(iterador < 5):
+            print("\n\t\t\\hline\n")
     
     cierraPagina()
 
@@ -119,13 +129,19 @@ def imprimePaginaIzq(matriz, nMes):
     nSemanasDelMes = len(matriz[0])
     letraDias = ['L', 'M', 'X', 'J', 'V', 'S', 'D']
     mesEnTexto = ['cero', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    esLaboral = True
 
     imprimeMesCabeceraIzqd(mesEnTexto[nMes], nSemanasDelMes)
 
     for iterador in range(7):
         imprimeDia(matriz[iterador][:(nSemanasDelMes/2)+(nSemanasDelMes%2)], letraDias[iterador])
-        imprimeCuadradosParaUnDia(matriz[iterador][:(nSemanasDelMes/2)+(nSemanasDelMes%2)])
+        if(iterador < 5):
+            for it2 in range(3):
+                imprimeCuadradosParaUnDia(matriz[iterador][:(nSemanasDelMes/2)+(nSemanasDelMes%2)], esLaboral)
+        else:
+            imprimeCuadradosParaUnDia(matriz[iterador][:(nSemanasDelMes/2)+(nSemanasDelMes%2)], not esLaboral)
 
-    print("\n\t\t\\hline\n")
+        if(iterador < 5):
+            print("\n\t\t\\hline\n")
     
     cierraPagina()
