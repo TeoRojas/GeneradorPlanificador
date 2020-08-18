@@ -15,7 +15,7 @@ for mes in range(1,13):
     nombreArchivo += str(mes) + "_" + mesNombre[mes] + "_" + 'pm2' + ".tex"
 
     original_stdout = sys.stdout
-    with open("resultados/" + nombreArchivo, 'w') as f:
+    with open("../Resultados/" + nombreArchivo, 'w') as f:
         sys.stdout = f
         
         matriz = generaMatrizMensual(mes, ano)
