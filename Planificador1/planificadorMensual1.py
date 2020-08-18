@@ -7,7 +7,7 @@ mesNombre = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Ago
 esPagIzq = True
 
 def imprimirPlanificadorMensual(numeroMes, numeroAno):
-    if(mes < 10):
+    if(mes < 9):
         nombreArchivo = '0' 
     else:
         nombreArchivo = ''

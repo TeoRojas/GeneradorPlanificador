@@ -23,10 +23,3 @@ for mes in range(1,13):
         imprimePaginaDch(matriz, mes)
 
         sys.stdout = original_stdout 
-"""
-ano = 2020
-mes = 1
-matriz = generaMatrizMensual(mes, ano)
-imprimePaginaIzq(matriz, mes)
-imprimePaginaDch(matriz, mes)
-"""
