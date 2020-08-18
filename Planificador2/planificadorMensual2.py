@@ -12,6 +12,8 @@ ano = input()
 for mes in range(1,13):
     if(mes < 10):
         nombreArchivo = '0' 
+    else:
+        nombreArchivo = ''
     nombreArchivo += str(mes) + "_" + mesNombre[mes] + "_" + 'pm2' + ".tex"
 
     original_stdout = sys.stdout
