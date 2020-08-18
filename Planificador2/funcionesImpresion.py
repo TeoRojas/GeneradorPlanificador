@@ -1,15 +1,9 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-
-def copiarDesde():
-    print "%%%%%%%%%%%%% COPIAR DESDE AQUÍ %%%%%%%%%%%%%%%%%%%"
-
-def copiarHasta():
-    print "%%%%%%%%%%%%% COPIAR HASTA AQUÍ %%%%%%%%%%%%%%%%%%%"
     
 def imprimeMesCabeceraIzqd(mesEnTexto, nSemanas):
     print "\\clearpage"
-    print "{\\raggedleft"
+    print "\\raggedleft{"
     print "\t\\fontsize{25}{50}\\selectfont"
     print "\t\\textbf{"+ mesEnTexto +"}\\\\"
     print "}\n\n"
@@ -34,7 +28,7 @@ def cierraPagina():
 
 def imprimeMesCabeceraDch(nSemanas):
     print "%Página siguiente"
-    print "{\\raggedright"
+    print "\\raggedright{"
     print "\t\\fontsize{25}{50}\\selectfont"
     print "\t\\textbf{\\NextYear}"
     print "}\\scriptsize{\\textbf{planificador mensual$_2$}}\n\n"

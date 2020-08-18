@@ -38,9 +38,9 @@ def generarPlanificadorMensual(numeroMes, numeroAno):
 
 def imprimeCabecera(mesNombre, esPagIzq):
     if(esPagIzq):
-        print '{\\raggedleft'
+        print '\\raggedleft{'
     else:
-        print '{\\raggedright'
+        print '\\raggedright{'
 
     print '\t\\fontsize{25}{50}\\selectfont'
 
