@@ -27,7 +27,7 @@ def generarPlanificadorMensual(numeroMes, numeroAno):
     for numeroDia in range(cantidadDiasDelMes):
         dia = diaSemana[posicionDelDiaDeLaSemana]
         print ( '\t\t' + dia + '_{' + str(numeroDia+1) + '}' + ' \dotfill' + "\\"+ "\\")
-        if(dia == 'D'):
+        if(dia == 'D' and numeroDia < cantidadDiasDelMes-1):
             print '\t\t\\hline'
         if (posicionDelDiaDeLaSemana == 6):
             posicionDelDiaDeLaSemana = -1
