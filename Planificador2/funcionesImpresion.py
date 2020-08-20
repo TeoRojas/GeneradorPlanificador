@@ -32,7 +32,11 @@ def imprimeMesCabeceraDch(nSemanas):
     print "\t\\fontsize{25}{50}\\selectfont"
     print "\t\\textbf{\\NextYear}"
     print "}\\scriptsize{\\textbf{planificador mensual$_2$}}\n\n"
-    if(nSemanas <= 5):
+    if(nSemanas <= 4):
+        print "\t\\renewcommand{\\arraystretch}{1.25}\\scriptsize"
+        print "\t\\begin{longtabu} to \\textwidth { X[l] X[l]}"
+        print "\t\t\\centering \\textbf{Semana3} &  \\centering\\textbf{Semana4}  \\\\"    
+    elif(nSemanas <= 5):
         print "\t\\renewcommand{\\arraystretch}{1.25}\\scriptsize"
         print "\t\\begin{longtabu} to \\textwidth { X[l] X[l]}"
         print "\t\t\\centering \\textbf{Semana4} &  \\centering\\textbf{Semana5}  \\\\"
